@@ -1,8 +1,7 @@
-import axios from 'axios';
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 import { IMainStore, IProduct } from './types';
 
-export const useMainStore = defineStore('MainStore', {
+const useMainStore = defineStore('MainStore', {
   state: (): IMainStore => ({
     items: [],
     loading: false,
@@ -20,13 +19,15 @@ export const useMainStore = defineStore('MainStore', {
 
   actions: {
     setPrice(price: string) {
-      this.price = price
+      this.price = price;
     },
     setFavoriteItems(items: IProduct[]) {
-      this.favoriteItems = items
+      this.favoriteItems = items;
     },
     setItems(items: IProduct[]) {
-      this.items = items
-    }
+      this.items = items;
+    },
   },
-})
+});
+
+export default useMainStore;

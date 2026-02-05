@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import CartItem from './CartItem.vue';
 </script>
 
@@ -58,6 +58,7 @@ import CartItem from './CartItem.vue';
         </div>
 
         <button
+          type="button"
           class="flex justify-center items-center gap-3 w-full py-3 mt-10 bg-lime-500 text-white rounded-xl transition active:bg-lime-700 hover:bg-lime-600"
         >
           Оформить заказ

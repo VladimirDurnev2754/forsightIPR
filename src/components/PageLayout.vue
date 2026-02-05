@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Filters from "./Filters.vue";
-import Header from "./Header.vue";
+import Filters from './FiltersItems.vue';
+import Header from './HeaderLoyout.vue';
 
 defineProps<{ title: string }>();
 </script>

@@ -1,10 +1,10 @@
-import { ECategory } from '@/api/types'
-import { createWebHistory, createRouter, } from 'vue-router'
+import { ECategory } from '@/api/types';
+import { createWebHistory, createRouter } from 'vue-router';
 
 declare module 'vue-router' {
   interface RouteMeta {
-    title: string
-    category: ECategory
+    title: string;
+    category: ECategory;
   }
 }
 
@@ -15,17 +15,15 @@ const router = createRouter({
       path: '/',
       name: 'home',
       meta: { title: 'Все кроссовки', category: ECategory.Products },
-      component: () => import('@/pages/Home.vue'),
+      component: () => import('@/pages/ProductsPage.vue'),
     },
     {
       path: '/favorite',
       name: 'favorite',
       meta: { title: 'Избранное', category: ECategory.Favorite },
-      component: () => import('@/pages/Home.vue'),
+      component: () => import('@/pages/ProductsPage.vue'),
     },
-
   ],
-})
+});
 
-export default router
-
+export default router;

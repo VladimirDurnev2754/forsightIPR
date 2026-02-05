@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { VueQueryDevtools } from "@tanstack/vue-query-devtools";
-import PageLayout from "@/components/PageLayout.vue";
-import { useRoute } from "vue-router";
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
+import PageLayout from '@/components/PageLayout.vue';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
 </script>
