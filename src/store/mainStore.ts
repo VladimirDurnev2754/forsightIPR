@@ -4,28 +4,25 @@ import { IMainStore, IProduct } from './types';
 const useMainStore = defineStore('MainStore', {
   state: (): IMainStore => ({
     items: [],
-    loading: false,
-    error: null,
-    price: '',
-    search: '',
-    favoriteItems: [],
-    satus: {},
+    sortPrice: '',
+    searchValue: '',
   }),
 
   getters: {
-    sneakersItems: (state): IProduct[] => state.items,
-    getFavoriteItems: (state): IProduct[] => state.favoriteItems,
+    getProducts: (state): IProduct[] => state.items,
+    getSortPrice: (state): string => state.sortPrice,
+    getSearchValue: (state): string => state.searchValue,
   },
 
   actions: {
-    setPrice(price: string) {
-      this.price = price;
-    },
-    setFavoriteItems(items: IProduct[]) {
-      this.favoriteItems = items;
-    },
     setItems(items: IProduct[]) {
       this.items = items;
+    },
+    setSortPrice(value: string) {
+      this.sortPrice = value;
+    },
+    setSearchValue(value: string) {
+      this.searchValue = value;
     },
   },
 });

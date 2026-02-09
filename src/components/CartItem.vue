@@ -3,7 +3,7 @@ export type CardProps = {
   img: string;
   title: string;
   price: number;
-  onClickDelete: () => void;
+  onClickDelete?: () => void;
 };
 const { img, title, price } = defineProps<CardProps>();
 </script>

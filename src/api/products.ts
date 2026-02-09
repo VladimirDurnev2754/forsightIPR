@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { UseQueryOptions } from '@tanstack/vue-query';
-
+import useMainStore from '@/store/mainStore';
 import { ECategory, IGetProductsParams } from './types';
-import API_URL from './constants';
+import { productsUrl } from './mutatuons/constants';
 
 /** Универсальная функция для получения данных по категории. */
-export async function getItems({ price, search, category }: IGetProductsParams) {
-  const { data } = await axios.get(`${API_URL}${category}`, {
+export async function getItems({ category, sortPrice, search }: IGetProductsParams) {
+  const { data } = await axios.get(productsUrl, {
     params: {
-      category: price || undefined,
-      search: search || undefined,
+      sortBy: sortPrice || undefined,
+      title: search ? `*${search}` : undefined,
+      isFavorite: category === ECategory.Favorite || undefined,
     },
   });
 
@@ -21,13 +22,19 @@ export async function getItems({ price, search, category }: IGetProductsParams) 
  */
 export const queryOptions = <TData>(
   category: ECategory,
-  params: { price?: string; search?: string } = {},
-  options?: UseQueryOptions<TData[]>
-): UseQueryOptions<TData[]> => {
+  params: { sortPrice?: string; search?: string } = {},
+  options?: Omit<UseQueryOptions<TData[]>, 'queryKey' | 'queryFn'>
+) => {
   return {
     queryKey: [category, params],
     queryFn: () => getItems({ ...params, category }),
     staleTime: Infinity,
+    select: (data) => {
+      // Side-effect: обновляем store
+      const store = useMainStore();
+      store.setItems(data);
+      return data;
+    },
     ...options,
   };
 };

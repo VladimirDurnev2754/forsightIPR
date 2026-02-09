@@ -8,10 +8,6 @@ export interface IProduct {
 
 export interface IMainStore {
   items: IProduct[];
-  loading: boolean;
-  error: string | null;
-  price: string;
-  search: string;
-  favoriteItems: IProduct[];
-  satus: {};
+  sortPrice: string;
+  searchValue: string;
 }

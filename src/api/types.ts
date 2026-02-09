@@ -5,7 +5,8 @@ export enum ECategory {
 }
 
 export interface IGetProductsParams {
-  price?: string | undefined;
+  sortPrice?: string | undefined;
   search?: string | undefined;
-  category?: ECategory | undefined;
+  favorite?: boolean | undefined;
+  category: ECategory;
 }
