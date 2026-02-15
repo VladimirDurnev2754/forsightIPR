@@ -8,5 +8,5 @@ export interface IGetProductsParams {
   sortPrice?: string | undefined;
   search?: string | undefined;
   favorite?: boolean | undefined;
-  category: ECategory;
+  category?: ECategory;
 }

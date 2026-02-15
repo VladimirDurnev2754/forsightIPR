@@ -8,7 +8,7 @@ const route = useRoute();
 
 <template>
   <VueQueryDevtools />
-  <PageLayout :title="route.meta.title">
+  <PageLayout :title="route.meta.title ?? ''">
     <router-view />
   </PageLayout>
 </template>

@@ -15,14 +15,18 @@
     "lint": "eslint src --ext .ts,.vue",
     "lint:fix": "eslint src --ext .ts,.vue --fix",
     "format": "prettier --write src/",
-    "type-check-live": "vue-tsc --noEmit --watch"
+    "type-check-live": "vue-tsc --noEmit --watch",
+    "generate": "graphql-codegen",
+    "generate:watch": "graphql-codegen --watch"
   },
   "dependencies": {
+    "@apollo/server": "^4.13.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@tanstack/vue-query": "^5.89.0",
     "@tanstack/vue-query-devtools": "^5.89.0",
     "@vue/typescript-plugin": "^3.0.6",
     "axios": "^1.12.2",
+    "graphql": "^16.12.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
@@ -50,6 +54,8 @@
     "postcss": "^8.5.6",
     "prettier": "^3.8.1",
     "tailwindcss": "^3.4.17",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "~5.8.0",
     "vite": "npm:rolldown-vite@latest",
     "vite-plugin-vue-devtools": "^8.0.0",

@@ -1,4 +1,4 @@
-import API_URL from '../constants';
+import { API_URL } from '../constants';
 import { ECategory } from '../types';
 
 export const productsUrl = `${API_URL}${ECategory.Products}/`;

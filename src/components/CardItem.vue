@@ -8,6 +8,7 @@ interface ICardProps {
 }
 
 const { title, img, price, isFavorite, onClickFavorite } = defineProps<ICardProps>();
+console.log('img', img);
 </script>
 
 <template>
