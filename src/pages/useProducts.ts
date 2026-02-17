@@ -1,6 +1,5 @@
-import { ECategory } from '@/api/types';
 import { queryOptions } from '@/api/products';
-import { useQuery, useQueryClient, UseQueryReturnType } from '@tanstack/vue-query';
+import { useQuery, UseQueryReturnType } from '@tanstack/vue-query';
 import { computed } from 'vue';
 import useMainStore from '@/store/mainStore';
 import { storeToRefs } from 'pinia';
@@ -11,7 +10,6 @@ const useProducts = (): UseQueryReturnType<any, Error> => {
   const route = useRoute();
   const category = computed(() => route.meta.category);
   const { sortPrice, searchValue } = storeToRefs(store);
-  const queryClient = useQueryClient();
 
   // 1. Опции запроса (реактивные)
   const options = computed(() =>

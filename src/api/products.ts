@@ -77,7 +77,7 @@ export const queryOptions = <TData>(
   options?: Omit<UseQueryOptions<TData[]>, 'queryKey' | 'queryFn'>
 ) => {
   return {
-    queryKey: [category, params],
+    queryKey: ['getAll', category, params],
     queryFn: () => fetchSneakers({ ...params, category }),
     staleTime: Infinity,
     select: (data) => {

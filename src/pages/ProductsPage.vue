@@ -16,13 +16,12 @@ function onClickFavorite(item: IProduct) {
     { ...item, isFavorite: !item.isFavorite },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [ECategory.Products] });
+        queryClient.invalidateQueries({ queryKey: ['getAll'] });
       },
     }
   );
 }
 const { data, isLoading } = useProducts();
-console.log('data', data);
 </script>
 
 <template>

@@ -14,10 +14,10 @@
     "types": [
       "vue"
     ],
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
-        "*"
+        "src/*"
       ]
     }
   },
@@ -28,7 +28,8 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "index.ts"
   ],
   "initializationOptions": {
     "plugins": [

@@ -3,6 +3,7 @@ export interface IProduct {
   title: string;
   price: number;
   imageUrl: string;
+  isAdded: boolean;
   isFavorite: boolean;
 }
 
