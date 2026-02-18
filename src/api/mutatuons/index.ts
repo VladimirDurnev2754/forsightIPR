@@ -1,14 +1,13 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/vue-query';
 import { IProduct } from '@/store/types';
-import { ECategory } from '../types';
 import { APOLLO_URL } from '../constants';
 import { productsUrl } from './constants';
 
 /**
  * Фабрика хуков для мутаций по категориям товаров
  */
-const createMutations = (category: ECategory, options?) => {
+const createMutations = (options?) => {
   return {
     useAddMutation: () =>
       useMutation({

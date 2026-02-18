@@ -5,15 +5,17 @@ interface ICardProps {
   price: number;
   isFavorite: boolean;
   onClickFavorite: () => void;
+  onClickItem?: () => void;
 }
 
-const { title, img, price, isFavorite, onClickFavorite } = defineProps<ICardProps>();
-console.log('img', img);
+const { title, img, price, isFavorite, onClickFavorite, onClickItem } = defineProps<ICardProps>();
 </script>
 
 <template>
   <div
     class="relative flex flex-col w-full border border-slate-100 rounded-xl p-8 cursor-pointer transition hover:shadow-xl hover:transform hover:-translate-y-2"
+    @click="onClickItem"
+    @keydown="onClickItem"
   >
     <div class="absolute top-8 left-8">
       <img

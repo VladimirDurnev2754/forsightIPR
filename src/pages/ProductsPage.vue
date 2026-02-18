@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { ECategory } from '@/api/types';
 import createMutations from '@/api/mutatuons';
 import { useQueryClient } from '@tanstack/vue-query';
 import { IProduct } from '@/store/types';
 import CardItem from '@/components/CardItem.vue';
 import useProducts from './useProducts';
 
-const { useAddMutation } = createMutations(ECategory.Products);
+const { useAddMutation } = createMutations();
 const { mutate: addFavorite } = useAddMutation();
 
 const queryClient = useQueryClient();
 
-function onClickFavorite(item: IProduct) {
+const onClickFavorite = (item: IProduct) => {
   addFavorite(
     { ...item, isFavorite: !item.isFavorite },
     {
@@ -20,7 +19,12 @@ function onClickFavorite(item: IProduct) {
       },
     }
   );
-}
+};
+
+// const onClickItem = () => {
+
+// }
+
 const { data, isLoading } = useProducts();
 </script>
 
