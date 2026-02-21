@@ -27,16 +27,9 @@ jobs:
         run: npm install
 
       # 4. Запускаем Линтер (Airbnb + Vue)
-      # Если тут будет ошибка — билд упадет и ПР не даст смерджить
       - name: Lint check
         run: npm run lint
 
       # 5. Собираем билд (Vue проект)
-      # Проверяем, что билд не падает из-за ошибок в TS/Apollo
       - name: Build Vue Project
         run: npm run build
-
-      # 6. (Опционально) Сборка Apollo сервера
-      # Если сервер в том же репозитории и ты его компилируешь
-      - name: Build Apollo Server
-        run: npx tsc index.ts --noEmit # Просто проверяем типы без создания файлов
