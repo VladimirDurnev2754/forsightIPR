@@ -29,7 +29,8 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.vue",
-    "index.ts"
+    "index.ts",
+    "netlify/functions/**/*.ts",
   ],
   "initializationOptions": {
     "plugins": [

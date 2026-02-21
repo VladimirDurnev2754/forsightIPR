@@ -1,8 +1,8 @@
-import { productsUrl } from '@/api/mutatuons/constants';
-import { ECategory } from '@/api/types';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import axios from 'axios';
+import { productsUrl } from './src/api/mutatuons/constants';
+import { ECategory } from './src/api/types';
 
 const typeDefs = `#graphql
   type Product {
