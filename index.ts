@@ -37,35 +37,35 @@ const typeDefs = `#graphql
 `;
 
 const resolvers = {
-    Query: {
-        products: async (_, { category, sortPrice, search }) => {
-            const { data } = await axios.get(productsUrl, {
-                params: {
-                    sortBy: sortPrice || undefined,
-                    title: search ? `*${search}` : undefined,
-                    isFavorite: category === ECategory.Favorite || undefined,
-                },
-            });
+  Query: {
+    products: async (_, { category, sortPrice, search }) => {
+      const { data } = await axios.get(productsUrl, {
+        params: {
+          sortBy: sortPrice || undefined,
+          title: search ? `*${search}` : undefined,
+          isFavorite: category === ECategory.Favorite || undefined,
+        },
+      });
 
-            return data;
-        },
+      return data;
     },
-    Mutation: {
-        updateProduct: async (_, { url, updateItem }) => {
-            const { data } = await axios.patch(url, updateItem);
-            return data;
-        },
+  },
+  Mutation: {
+    updateProduct: async (_, { url, updateItem }) => {
+      const { data } = await axios.patch(url, updateItem);
+      return data;
     },
+  },
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
 async function start() {
-    const { url } = await startStandaloneServer(server, {
-        listen: { port: 4000 },
-    });
-    console.log(`🚀 GraphQL прокси: ${url}`);
-    console.log(`📡 Источник: productsUrl ${productsUrl}`);
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 },
+  });
+  console.log(`🚀 GraphQL прокси: ${url}`);
+  console.log(`📡 Источник: productsUrl ${productsUrl}`);
 }
 
 start();

@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[dev]
+  port = 8888
+  # УБИРАЕМ command, чтобы запускать руками
+  targetPort = 5173 
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/graphql"
+  status = 200
