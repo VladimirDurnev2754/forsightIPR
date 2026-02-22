@@ -11,3 +11,7 @@
   from = "/api/*"
   to = "/.netlify/functions/graphql"
   status = 200
+
+[functions]
+  external_node_modules = ["axios"]
+  directory = "netlify/functions"

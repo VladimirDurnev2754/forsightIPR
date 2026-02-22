@@ -1,10 +1,7 @@
 import { ApolloServer } from '@apollo/server';
-import {
-  startServerAndCreateLambdaHandler,
-  handlers,
-} from '@as-integrations/aws-lambda';
+import { startServerAndCreateLambdaHandler, handlers } from '@as-integrations/aws-lambda';
 import axios from 'axios';
-import { productsUrl } from '../../src/api/mutatuons/constants';
+import { productsUrl } from '../../src/api/mutations/constants';
 import { ECategory } from '../../src/api/types';
 
 const typeDefs = `#graphql
@@ -42,10 +39,9 @@ const server = new ApolloServer({
   introspection: true,
 });
 
-
 // Этот хендлер — "родной" для Netlify, он не требует Express
 export const handler = startServerAndCreateLambdaHandler(
   server,
   // Меняем V2 на V1 — это более стандартный формат для Netlify CLI
-  handlers.createAPIGatewayProxyEventRequestHandler(), 
+  handlers.createAPIGatewayProxyEventRequestHandler()
 );

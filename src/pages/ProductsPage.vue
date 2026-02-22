@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import createMutations from '@/api/mutatuons';
+import createMutations from '@/api/mutations';
 import { useQueryClient } from '@tanstack/vue-query';
 import { IProduct } from '@/store/types';
 import CardItem from '@/components/CardItem.vue';
