@@ -1,8 +1,14 @@
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateLambdaHandler, handlers } from '@as-integrations/aws-lambda';
 import axios from 'axios';
-import { productsUrl } from '../../src/api/mutations/constants';
-import { ECategory } from '../../src/api/types';
+// ДУБЛИКАТЫ ИБО НЕТЛИФАЙ НЕ ВИДИТ ИМПОРТЫ
+const API_URL = 'https://7407a6ddac9521b2.mokky.dev/';
+enum ECategory {
+  Favorite = 'favorite',
+  Products = 'products',
+  Cart = 'cart',
+}
+const productsUrl = `${API_URL}${ECategory.Products}/`;
 
 const typeDefs = `#graphql
   type Product { id: ID!, title: String, price: Int, imageUrl: String, isFavorite: Boolean, isAdded: Boolean }
@@ -40,6 +46,7 @@ const server = new ApolloServer({
 });
 
 // Этот хендлер — "родной" для Netlify, он не требует Express
+// eslint-disable-next-line import/prefer-default-export
 export const handler = startServerAndCreateLambdaHandler(
   server,
   // Меняем V2 на V1 — это более стандартный формат для Netlify CLI
