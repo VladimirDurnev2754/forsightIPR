@@ -10,7 +10,7 @@ test('test', async ({ page }) => {
   });
   await page.goto('http://localhost:8888/');
 
-  await expect(page.getByTestId('1')).toBeVisible({ timeout: 15000 });
+  await expect(page.getByText('Мужские Кроссовки Nike Blazer Mid Suede 1')).toBeVisible({ timeout: 15000 });
   await expect(page).toHaveScreenshot('initial-load.png', {});
 
   await page.getByRole('combobox').selectOption('price');
