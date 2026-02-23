@@ -8,6 +8,7 @@ test('test', async ({ page }) => {
   //   matcher: 'relaxed',
   //   notFound: 'abort',
   // });
+  
   await page.goto('http://localhost:8888/');
 
   await expect(page.getByText('Мужские Кроссовки Nike Blazer Mid Suede 1')).toBeVisible({ timeout: 15000 });
