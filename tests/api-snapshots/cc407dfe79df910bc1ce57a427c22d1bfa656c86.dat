@@ -1,0 +1,4 @@
+export const API_URL = "https://7407a6ddac9521b2.mokky.dev/";
+export const APOLLO_URL = "/api";
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsT0FBTyxNQUFNLFVBQVU7QUFDdkIsT0FBTyxNQUFNLGFBQWEiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiY29uc3RhbnRzLnRzIl0sInZlcnNpb24iOjMsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBBUElfVVJMID0gJ2h0dHBzOi8vNzQwN2E2ZGRhYzk1MjFiMi5tb2treS5kZXYvJztcbmV4cG9ydCBjb25zdCBBUE9MTE9fVVJMID0gJy9hcGknO1xuIl19

@@ -1,0 +1,8 @@
+export let ECategory = /* @__PURE__ */ function(ECategory) {
+	ECategory["Favorite"] = "favorite";
+	ECategory["Products"] = "products";
+	ECategory["Cart"] = "cart";
+	return ECategory;
+}({});
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsT0FBTyxJQUFLLGdEQUFMO0FBQ0w7QUFDQTtBQUNBIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbInR5cGVzLnRzIl0sInZlcnNpb24iOjMsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBlbnVtIEVDYXRlZ29yeSB7XG4gIEZhdm9yaXRlID0gJ2Zhdm9yaXRlJyxcbiAgUHJvZHVjdHMgPSAncHJvZHVjdHMnLFxuICBDYXJ0ID0gJ2NhcnQnLFxufVxuXG5leHBvcnQgaW50ZXJmYWNlIElHZXRQcm9kdWN0c1BhcmFtcyB7XG4gIHNvcnRQcmljZT86IHN0cmluZyB8IHVuZGVmaW5lZDtcbiAgc2VhcmNoPzogc3RyaW5nIHwgdW5kZWZpbmVkO1xuICBmYXZvcml0ZT86IGJvb2xlYW4gfCB1bmRlZmluZWQ7XG4gIGNhdGVnb3J5PzogRUNhdGVnb3J5O1xufVxuIl19

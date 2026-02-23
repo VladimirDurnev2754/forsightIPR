@@ -40,6 +40,7 @@ const { data, isLoading } = useProducts();
         :price="item.price"
         :img="item.imageUrl"
         :is-favorite="item.isFavorite"
+        :data-testid="item.id"
         @click-favorite="onClickFavorite(item)"
       />
     </template>

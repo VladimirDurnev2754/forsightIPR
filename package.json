@@ -18,7 +18,9 @@
     "format": "prettier --write src/",
     "type-check-live": "vue-tsc --noEmit --watch",
     "generate": "graphql-codegen",
-    "generate:watch": "graphql-codegen --watch"
+    "generate:watch": "graphql-codegen --watch",
+    "e2e-test-ui": "npx playwright test --ui",
+    "e2e-test": "npx playwright test"
   },
   "dependencies": {
     "@apollo/server": "^5.4.0",
@@ -34,6 +36,7 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@prettier/plugin-oxc": "^0.0.4",
     "@rushstack/eslint-patch": "^1.15.0",
     "@tsconfig/node22": "^22.0.2",

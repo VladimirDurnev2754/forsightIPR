@@ -1,0 +1,67 @@
+import axios from "/node_modules/.vite/deps/axios.js?v=e81cc6c0";
+import { APOLLO_URL } from "/src/api/constants.ts";
+export const fetchSneakers = async ({ category, search, sortPrice, includeId, includeTitle, includePrice, includeImageUrl, includeIsAdded, includeIsFavorite }) => {
+	const { data } = await axios.post(APOLLO_URL, {
+		query: `#graphql
+      query GetProducts(
+        $category: String,
+        $search: String, 
+        $sortPrice: String,
+        $includeId: Boolean!,
+        $includeTitle: Boolean!,
+        $includePrice: Boolean!,
+        $includeImageUrl: Boolean!,
+        $includeIsAdded: Boolean!,
+        $includeIsFavorite: Boolean!,
+      ) {
+        products(
+          category: $category
+          search: $search
+          sortPrice: $sortPrice
+        ) {
+          id @include(if: $includeId)
+          title @include(if: $includeTitle)
+          price @include(if: $includePrice)
+          imageUrl @include(if: $includeImageUrl)
+          isAdded @include(if: $includeIsAdded)
+          isFavorite @include(if: $includeIsFavorite)
+        }
+      }
+    `,
+		variables: {
+			category,
+			search,
+			sortPrice,
+			includeId: includeId ?? true,
+			includeTitle: includeTitle ?? true,
+			includePrice: includePrice ?? true,
+			includeImageUrl: includeImageUrl ?? true,
+			includeIsAdded: includeIsAdded ?? true,
+			includeIsFavorite: includeIsFavorite ?? true
+		}
+	});
+	return data;
+};
+/**
+* Типизированная функция-обёртка для создания query options для useQuery.
+*/
+export const queryOptions = (category, params, options) => {
+	return {
+		queryKey: [
+			"getAll",
+			category,
+			params
+		],
+		queryFn: () => fetchSneakers({
+			...params,
+			category
+		}),
+		staleTime: Infinity,
+		select: (data) => {
+			return data.data.products;
+		},
+		...options
+	};
+};
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsT0FBTyxXQUFXO0FBR2xCLFNBQVMsa0JBQWtCO0FBYzNCLE9BQU8sTUFBTSxnQkFBZ0IsT0FBTyxFQUNsQyxVQUNBLFFBQ0EsV0FDQSxXQUNBLGNBQ0EsY0FDQSxpQkFDQSxnQkFDQSx3QkFDYTtDQUNiLE1BQU0sRUFBRSxTQUFTLE1BQU0sTUFBTSxLQUFLLFlBQVk7RUFDNUMsT0FBTzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7RUEwQlAsV0FBVztHQUNUO0dBQ0E7R0FDQTtHQUNBLFdBQVcsYUFBYTtHQUN4QixjQUFjLGdCQUFnQjtHQUM5QixjQUFjLGdCQUFnQjtHQUM5QixpQkFBaUIsbUJBQW1CO0dBQ3BDLGdCQUFnQixrQkFBa0I7R0FDbEMsbUJBQW1CLHFCQUFxQjtHQUN6QztFQUNGLENBQUM7QUFDRixRQUFPOzs7OztBQU1ULE9BQU8sTUFBTSxnQkFDWCxVQUNBLFFBQ0EsWUFDRztBQUNILFFBQU87RUFDTCxVQUFVO0dBQUM7R0FBVTtHQUFVO0dBQU87RUFDdEMsZUFBZSxjQUFjO0dBQUUsR0FBRztHQUFRO0dBQVUsQ0FBQztFQUNyRCxXQUFXO0VBQ1gsU0FBUyxTQUFTO0FBQ2hCLFVBQU8sS0FBSyxLQUFLOztFQUVuQixHQUFHO0VBQ0oiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsicHJvZHVjdHMudHMiXSwidmVyc2lvbiI6Mywic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGF4aW9zIGZyb20gJ2F4aW9zJztcbmltcG9ydCB7IFVzZVF1ZXJ5T3B0aW9ucyB9IGZyb20gJ0B0YW5zdGFjay92dWUtcXVlcnknO1xuaW1wb3J0IHsgRUNhdGVnb3J5IH0gZnJvbSAnLi90eXBlcyc7XG5pbXBvcnQgeyBBUE9MTE9fVVJMIH0gZnJvbSAnLi9jb25zdGFudHMnO1xuXG5pbnRlcmZhY2UgSVBhcmFtcyB7XG4gIGNhdGVnb3J5PzogRUNhdGVnb3J5O1xuICBzZWFyY2g/OiBzdHJpbmc7XG4gIHNvcnRQcmljZT86IHN0cmluZztcbiAgaW5jbHVkZUlkPzogYm9vbGVhbjtcbiAgaW5jbHVkZVRpdGxlPzogYm9vbGVhbjtcbiAgaW5jbHVkZVByaWNlPzogYm9vbGVhbjtcbiAgaW5jbHVkZUltYWdlVXJsPzogYm9vbGVhbjtcbiAgaW5jbHVkZUlzQWRkZWQ/OiBib29sZWFuO1xuICBpbmNsdWRlSXNGYXZvcml0ZT86IGJvb2xlYW47XG59XG5cbmV4cG9ydCBjb25zdCBmZXRjaFNuZWFrZXJzID0gYXN5bmMgKHtcbiAgY2F0ZWdvcnksXG4gIHNlYXJjaCxcbiAgc29ydFByaWNlLFxuICBpbmNsdWRlSWQsXG4gIGluY2x1ZGVUaXRsZSxcbiAgaW5jbHVkZVByaWNlLFxuICBpbmNsdWRlSW1hZ2VVcmwsXG4gIGluY2x1ZGVJc0FkZGVkLFxuICBpbmNsdWRlSXNGYXZvcml0ZSxcbn06IElQYXJhbXMpID0+IHtcbiAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBheGlvcy5wb3N0KEFQT0xMT19VUkwsIHtcbiAgICBxdWVyeTogYCNncmFwaHFsXG4gICAgICBxdWVyeSBHZXRQcm9kdWN0cyhcbiAgICAgICAgJGNhdGVnb3J5OiBTdHJpbmcsXG4gICAgICAgICRzZWFyY2g6IFN0cmluZywgXG4gICAgICAgICRzb3J0UHJpY2U6IFN0cmluZyxcbiAgICAgICAgJGluY2x1ZGVJZDogQm9vbGVhbiEsXG4gICAgICAgICRpbmNsdWRlVGl0bGU6IEJvb2xlYW4hLFxuICAgICAgICAkaW5jbHVkZVByaWNlOiBCb29sZWFuISxcbiAgICAgICAgJGluY2x1ZGVJbWFnZVVybDogQm9vbGVhbiEsXG4gICAgICAgICRpbmNsdWRlSXNBZGRlZDogQm9vbGVhbiEsXG4gICAgICAgICRpbmNsdWRlSXNGYXZvcml0ZTogQm9vbGVhbiEsXG4gICAgICApIHtcbiAgICAgICAgcHJvZHVjdHMoXG4gICAgICAgICAgY2F0ZWdvcnk6ICRjYXRlZ29yeVxuICAgICAgICAgIHNlYXJjaDogJHNlYXJjaFxuICAgICAgICAgIHNvcnRQcmljZTogJHNvcnRQcmljZVxuICAgICAgICApIHtcbiAgICAgICAgICBpZCBAaW5jbHVkZShpZjogJGluY2x1ZGVJZClcbiAgICAgICAgICB0aXRsZSBAaW5jbHVkZShpZjogJGluY2x1ZGVUaXRsZSlcbiAgICAgICAgICBwcmljZSBAaW5jbHVkZShpZjogJGluY2x1ZGVQcmljZSlcbiAgICAgICAgICBpbWFnZVVybCBAaW5jbHVkZShpZjogJGluY2x1ZGVJbWFnZVVybClcbiAgICAgICAgICBpc0FkZGVkIEBpbmNsdWRlKGlmOiAkaW5jbHVkZUlzQWRkZWQpXG4gICAgICAgICAgaXNGYXZvcml0ZSBAaW5jbHVkZShpZjogJGluY2x1ZGVJc0Zhdm9yaXRlKVxuICAgICAgICB9XG4gICAgICB9XG4gICAgYCxcbiAgICB2YXJpYWJsZXM6IHtcbiAgICAgIGNhdGVnb3J5LFxuICAgICAgc2VhcmNoLFxuICAgICAgc29ydFByaWNlLFxuICAgICAgaW5jbHVkZUlkOiBpbmNsdWRlSWQgPz8gdHJ1ZSxcbiAgICAgIGluY2x1ZGVUaXRsZTogaW5jbHVkZVRpdGxlID8/IHRydWUsXG4gICAgICBpbmNsdWRlUHJpY2U6IGluY2x1ZGVQcmljZSA/PyB0cnVlLFxuICAgICAgaW5jbHVkZUltYWdlVXJsOiBpbmNsdWRlSW1hZ2VVcmwgPz8gdHJ1ZSxcbiAgICAgIGluY2x1ZGVJc0FkZGVkOiBpbmNsdWRlSXNBZGRlZCA/PyB0cnVlLFxuICAgICAgaW5jbHVkZUlzRmF2b3JpdGU6IGluY2x1ZGVJc0Zhdm9yaXRlID8/IHRydWUsXG4gICAgfSxcbiAgfSk7XG4gIHJldHVybiBkYXRhO1xufTtcblxuLyoqXG4gKiDQotC40L/QuNC30LjRgNC+0LLQsNC90L3QsNGPINGE0YPQvdC60YbQuNGPLdC+0LHRkdGA0YLQutCwINC00LvRjyDRgdC+0LfQtNCw0L3QuNGPIHF1ZXJ5IG9wdGlvbnMg0LTQu9GPIHVzZVF1ZXJ5LlxuICovXG5leHBvcnQgY29uc3QgcXVlcnlPcHRpb25zID0gPFREYXRhPihcbiAgY2F0ZWdvcnk6IEVDYXRlZ29yeSxcbiAgcGFyYW1zOiBJUGFyYW1zLFxuICBvcHRpb25zPzogT21pdDxVc2VRdWVyeU9wdGlvbnM8VERhdGFbXT4sICdxdWVyeUtleScgfCAncXVlcnlGbic+XG4pID0+IHtcbiAgcmV0dXJuIHtcbiAgICBxdWVyeUtleTogWydnZXRBbGwnLCBjYXRlZ29yeSwgcGFyYW1zXSxcbiAgICBxdWVyeUZuOiAoKSA9PiBmZXRjaFNuZWFrZXJzKHsgLi4ucGFyYW1zLCBjYXRlZ29yeSB9KSxcbiAgICBzdGFsZVRpbWU6IEluZmluaXR5LFxuICAgIHNlbGVjdDogKGRhdGEpID0+IHtcbiAgICAgIHJldHVybiBkYXRhLmRhdGEucHJvZHVjdHM7XG4gICAgfSxcbiAgICAuLi5vcHRpb25zLFxuICB9O1xufTtcbiJdfQ==

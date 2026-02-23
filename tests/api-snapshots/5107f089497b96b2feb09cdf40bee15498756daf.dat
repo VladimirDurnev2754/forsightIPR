@@ -1,0 +1,43 @@
+import axios from "/node_modules/.vite/deps/axios.js?v=e81cc6c0";
+import { useMutation } from "/node_modules/.vite/deps/@tanstack_vue-query.js?v=e81cc6c0";
+import { APOLLO_URL } from "/src/api/constants.ts";
+import { productsUrl } from "/src/api/mutations/constants.ts";
+/**
+* Фабрика хуков для мутаций по категориям товаров
+*/
+const createMutations = (options) => {
+	return { useAddMutation: () => useMutation({
+		mutationFn: async (dataItem) => {
+			const response = await axios.post(APOLLO_URL, {
+				query: `#graphql
+            mutation UpdateProduct($url: String, $updateItem: ProductInput!) {
+              updateProduct(url: $url, updateItem: $updateItem,) {
+                id,
+                title,
+                price,
+                imageUrl,
+                isAdded,
+                isFavorite,
+              }
+            }
+          `,
+				variables: {
+					url: `${productsUrl}${dataItem.id}`,
+					updateItem: {
+						isFavorite: dataItem.isFavorite,
+						isAdded: dataItem.isAdded,
+						title: dataItem.title,
+						price: dataItem.price,
+						imageUrl: dataItem.imageUrl
+					}
+				}
+			});
+			return response.data.data.updateProduct;
+		},
+		onError: (error) => console.error("Ошибка запроса:", error),
+		...options
+	}) };
+};
+export default createMutations;
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsT0FBTyxXQUFXO0FBQ2xCLFNBQVMsbUJBQW1CO0FBRTVCLFNBQVMsa0JBQWtCO0FBQzNCLFNBQVMsbUJBQW1COzs7O0FBSzVCLE1BQU0sbUJBQW1CLFlBQWE7QUFDcEMsUUFBTyxFQUNMLHNCQUNFLFlBQVk7RUFDVixZQUFZLE9BQU8sYUFBdUI7R0FDeEMsTUFBTSxXQUFXLE1BQU0sTUFBTSxLQUFLLFlBQVk7SUFDNUMsT0FBTzs7Ozs7Ozs7Ozs7O0lBWVAsV0FBVztLQUNULEtBQUssR0FBRyxjQUFjLFNBQVM7S0FDL0IsWUFBWTtNQUNWLFlBQVksU0FBUztNQUNyQixTQUFTLFNBQVM7TUFDbEIsT0FBTyxTQUFTO01BQ2hCLE9BQU8sU0FBUztNQUNoQixVQUFVLFNBQVM7TUFDcEI7S0FDRjtJQUNGLENBQUM7QUFFRixVQUFPLFNBQVMsS0FBSyxLQUFLOztFQUU1QixVQUFVLFVBQVUsUUFBUSxNQUFNLG1CQUFtQixNQUFNO0VBQzNELEdBQUc7RUFDSixDQUFDLEVBQ0w7O0FBR0gsZUFBZSIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJpbmRleC50cyJdLCJ2ZXJzaW9uIjozLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgYXhpb3MgZnJvbSAnYXhpb3MnO1xuaW1wb3J0IHsgdXNlTXV0YXRpb24gfSBmcm9tICdAdGFuc3RhY2svdnVlLXF1ZXJ5JztcbmltcG9ydCB7IElQcm9kdWN0IH0gZnJvbSAnQC9zdG9yZS90eXBlcyc7XG5pbXBvcnQgeyBBUE9MTE9fVVJMIH0gZnJvbSAnLi4vY29uc3RhbnRzJztcbmltcG9ydCB7IHByb2R1Y3RzVXJsIH0gZnJvbSAnLi9jb25zdGFudHMnO1xuXG4vKipcbiAqINCk0LDQsdGA0LjQutCwINGF0YPQutC+0LIg0LTQu9GPINC80YPRgtCw0YbQuNC5INC/0L4g0LrQsNGC0LXQs9C+0YDQuNGP0Lwg0YLQvtCy0LDRgNC+0LJcbiAqL1xuY29uc3QgY3JlYXRlTXV0YXRpb25zID0gKG9wdGlvbnM/KSA9PiB7XG4gIHJldHVybiB7XG4gICAgdXNlQWRkTXV0YXRpb246ICgpID0+XG4gICAgICB1c2VNdXRhdGlvbih7XG4gICAgICAgIG11dGF0aW9uRm46IGFzeW5jIChkYXRhSXRlbTogSVByb2R1Y3QpID0+IHtcbiAgICAgICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGF4aW9zLnBvc3QoQVBPTExPX1VSTCwge1xuICAgICAgICAgICAgcXVlcnk6IGAjZ3JhcGhxbFxuICAgICAgICAgICAgbXV0YXRpb24gVXBkYXRlUHJvZHVjdCgkdXJsOiBTdHJpbmcsICR1cGRhdGVJdGVtOiBQcm9kdWN0SW5wdXQhKSB7XG4gICAgICAgICAgICAgIHVwZGF0ZVByb2R1Y3QodXJsOiAkdXJsLCB1cGRhdGVJdGVtOiAkdXBkYXRlSXRlbSwpIHtcbiAgICAgICAgICAgICAgICBpZCxcbiAgICAgICAgICAgICAgICB0aXRsZSxcbiAgICAgICAgICAgICAgICBwcmljZSxcbiAgICAgICAgICAgICAgICBpbWFnZVVybCxcbiAgICAgICAgICAgICAgICBpc0FkZGVkLFxuICAgICAgICAgICAgICAgIGlzRmF2b3JpdGUsXG4gICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH1cbiAgICAgICAgICBgLFxuICAgICAgICAgICAgdmFyaWFibGVzOiB7XG4gICAgICAgICAgICAgIHVybDogYCR7cHJvZHVjdHNVcmx9JHtkYXRhSXRlbS5pZH1gLFxuICAgICAgICAgICAgICB1cGRhdGVJdGVtOiB7XG4gICAgICAgICAgICAgICAgaXNGYXZvcml0ZTogZGF0YUl0ZW0uaXNGYXZvcml0ZSxcbiAgICAgICAgICAgICAgICBpc0FkZGVkOiBkYXRhSXRlbS5pc0FkZGVkLFxuICAgICAgICAgICAgICAgIHRpdGxlOiBkYXRhSXRlbS50aXRsZSxcbiAgICAgICAgICAgICAgICBwcmljZTogZGF0YUl0ZW0ucHJpY2UsXG4gICAgICAgICAgICAgICAgaW1hZ2VVcmw6IGRhdGFJdGVtLmltYWdlVXJsLFxuICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgfSxcbiAgICAgICAgICB9KTtcblxuICAgICAgICAgIHJldHVybiByZXNwb25zZS5kYXRhLmRhdGEudXBkYXRlUHJvZHVjdDtcbiAgICAgICAgfSxcbiAgICAgICAgb25FcnJvcjogKGVycm9yKSA9PiBjb25zb2xlLmVycm9yKCfQntGI0LjQsdC60LAg0LfQsNC/0YDQvtGB0LA6JywgZXJyb3IpLFxuICAgICAgICAuLi5vcHRpb25zLFxuICAgICAgfSksXG4gIH07XG59O1xuXG5leHBvcnQgZGVmYXVsdCBjcmVhdGVNdXRhdGlvbnM7XG4iXX0=
