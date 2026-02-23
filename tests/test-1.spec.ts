@@ -5,6 +5,7 @@ test('test', async ({ page }) => {
     url: /.*\/api/,      
     update: false,      
     updateContent: 'attach',
+    matcher: 'relaxed',
     notFound: 'fallback',
   });
   await page.goto('http://localhost:8888/');
