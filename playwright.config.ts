@@ -9,7 +9,7 @@ export default defineConfig({
   },
   webServer: {
     command: 'npm run netlify-dev',
-    url: 'http://localhost:8888/.netlify/functions/graphql',
+    url: 'http://localhost:8888',
     reuseExistingServer: !process.env.CI,
     timeout: 180000,
   },

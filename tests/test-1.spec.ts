@@ -6,7 +6,7 @@ test('test', async ({ page }) => {
     update: false,      
     updateContent: 'attach',
     matcher: 'relaxed',
-    notFound: 'fallback',
+    notFound: 'abort',
   });
   await page.goto('http://localhost:8888/');
 
