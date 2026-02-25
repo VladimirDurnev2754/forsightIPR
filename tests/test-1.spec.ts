@@ -2,16 +2,18 @@ import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
   // await page.routeFromHAR('tests/api-snapshots/products.har', {
-  //   url: /.*\/api/,      
-  //   update: false,      
+  //   url: /.*\/api/,
+  //   update: false,
   //   updateContent: 'attach',
   //   matcher: 'relaxed',
   //   notFound: 'abort',
   // });
-  
+
   await page.goto('http://localhost:8888/');
 
-  await expect(page.getByText('Мужские Кроссовки Nike Blazer Mid Suede 1')).toBeVisible({ timeout: 15000 });
+  await expect(page.getByText('Мужские Кроссовки Nike Blazer Mid Suede 1')).toBeVisible({
+    timeout: 15000,
+  });
   await expect(page).toHaveScreenshot('initial-load.png', {});
 
   await page.getByRole('combobox').selectOption('price');
@@ -25,7 +27,7 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Поиск' }).click();
   await page.getByRole('textbox', { name: 'Поиск' }).fill('air');
   await expect(page).toHaveScreenshot('searchByAir.png', {});
-  
+
   await page.getByTestId('2').getByRole('img', { name: 'Favorite' }).click();
   await page.getByRole('link', { name: 'Favorite Закладки' }).click();
   await expect(page.getByTestId('2')).toBeVisible({ timeout: 15000 });
@@ -39,13 +41,13 @@ test('test', async ({ page }) => {
   //     body: JSON.stringify({
   //       data: {
   //         products: [
-  //           { 
-  //             id: "1", 
-  //             title: "Мужские Кроссовки Nike Blazer Mid Suede 1", 
-  //             price: 12990, 
+  //           {
+  //             id: "1",
+  //             title: "Мужские Кроссовки Nike Blazer Mid Suede 1",
+  //             price: 12990,
   //             imageUrl: "/img/1.jpg",
   //             isFavorite: false,
-  //             isAdded: false 
+  //             isAdded: false
   //           }
   //         ]
   //       }

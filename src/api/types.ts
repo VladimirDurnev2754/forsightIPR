@@ -10,3 +10,15 @@ export interface IGetProductsParams {
   favorite?: boolean | undefined;
   category?: ECategory;
 }
+
+export interface IParams {
+  category?: ECategory;
+  search?: string;
+  sortPrice?: string;
+  includeId?: boolean;
+  includeTitle?: boolean;
+  includePrice?: boolean;
+  includeImageUrl?: boolean;
+  includeIsAdded?: boolean;
+  includeIsFavorite?: boolean;
+}

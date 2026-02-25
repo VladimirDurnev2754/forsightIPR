@@ -1,31 +1,8 @@
 <script setup lang="ts">
-import createMutations from '@/api/mutations';
-import { useQueryClient } from '@tanstack/vue-query';
-import { IProduct } from '@/store/types';
 import CardItem from '@/components/CardItem.vue';
 import useProducts from './useProducts';
 
-const { useAddMutation } = createMutations();
-const { mutate: addFavorite } = useAddMutation();
-
-const queryClient = useQueryClient();
-
-const onClickFavorite = (item: IProduct) => {
-  addFavorite(
-    { ...item, isFavorite: !item.isFavorite },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['getAll'] });
-      },
-    }
-  );
-};
-
-// const onClickItem = () => {
-
-// }
-
-const { data, isLoading } = useProducts();
+const { data, isLoading, onClickFavorite } = useProducts();
 </script>
 
 <template>

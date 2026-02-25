@@ -7,6 +7,7 @@
     "nightwatch.conf.*",
     "playwright.config.*",
     "eslint.config.*",
+    "tests",
     "index.ts"
   ],
   "compilerOptions": {
@@ -17,6 +18,9 @@
     "types": [
       "node"
     ],
-    "lib": ["ESNext", "DOM"], 
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
   }
 }

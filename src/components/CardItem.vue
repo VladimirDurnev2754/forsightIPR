@@ -1,12 +1,5 @@
 <script lang="ts" setup>
-interface ICardProps {
-  title: string;
-  img: string;
-  price: number;
-  isFavorite: boolean;
-  onClickFavorite: () => void;
-  onClickItem?: () => void;
-}
+import { ICardProps } from './types';
 
 const { title, img, price, isFavorite, onClickFavorite, onClickItem } = defineProps<ICardProps>();
 </script>

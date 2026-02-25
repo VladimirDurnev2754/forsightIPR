@@ -1,19 +1,8 @@
 import axios from 'axios';
-import { UseQueryOptions } from '@tanstack/vue-query';
-import { ECategory } from './types';
-import { APOLLO_URL } from './constants';
-
-interface IParams {
-  category?: ECategory;
-  search?: string;
-  sortPrice?: string;
-  includeId?: boolean;
-  includeTitle?: boolean;
-  includePrice?: boolean;
-  includeImageUrl?: boolean;
-  includeIsAdded?: boolean;
-  includeIsFavorite?: boolean;
-}
+import { useMutation, UseQueryOptions } from '@tanstack/vue-query';
+import { IProduct } from '@/store/types';
+import { ECategory, IParams } from './types';
+import { APOLLO_URL, productsUrl } from './constants';
 
 export const fetchSneakers = async ({
   category,
@@ -84,5 +73,46 @@ export const queryOptions = <TData>(
       return data.data.products;
     },
     ...options,
+  };
+};
+
+/**
+ * Фабрика хуков для мутаций по категориям товаров
+ */
+export const createMutations = (options?) => {
+  return {
+    useAddMutation: () =>
+      useMutation({
+        mutationFn: async (dataItem: IProduct) => {
+          const response = await axios.post(APOLLO_URL, {
+            query: `#graphql
+            mutation UpdateProduct($url: String, $updateItem: ProductInput!) {
+              updateProduct(url: $url, updateItem: $updateItem,) {
+                id,
+                title,
+                price,
+                imageUrl,
+                isAdded,
+                isFavorite,
+              }
+            }
+          `,
+            variables: {
+              url: `${productsUrl}${dataItem.id}`,
+              updateItem: {
+                isFavorite: dataItem.isFavorite,
+                isAdded: dataItem.isAdded,
+                title: dataItem.title,
+                price: dataItem.price,
+                imageUrl: dataItem.imageUrl,
+              },
+            },
+          });
+
+          return response.data.data.updateProduct;
+        },
+        onError: (error) => console.error('Ошибка запроса:', error),
+        ...options,
+      }),
   };
 };

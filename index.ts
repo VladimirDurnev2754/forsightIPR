@@ -1,7 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import axios from 'axios';
-import { productsUrl } from './src/api/mutations/constants';
+import { productsUrl } from './src/api/constants';
 import { ECategory } from './src/api/types';
 
 const typeDefs = `#graphql

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { queryOptions } from '@/api/products';
+import { queryOptions } from '@/api';
 import { ECategory } from '@/api/types';
 import useMainStore from '@/store/mainStore';
 import { useQuery } from '@tanstack/vue-query';
@@ -21,7 +21,7 @@ const options = computed(() =>
     }
   )
 );
-// useQuery подписывается на изменения options
+
 useQuery(options);
 </script>
 

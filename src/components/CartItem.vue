@@ -1,11 +1,7 @@
 <script setup lang="ts">
-export type CardProps = {
-  img: string;
-  title: string;
-  price: number;
-  onClickDelete?: () => void;
-};
-const { img, title, price } = defineProps<CardProps>();
+import { ICartProps } from './types';
+
+const { img, title, price } = defineProps<ICartProps>();
 </script>
 
 <template>
